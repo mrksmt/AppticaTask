@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+// Data
+service Data {
+  rpc GetData(GetDataRequest) returns (GetDataResponse) {};
+  rpc PutData(PutDataRequest) returns (PutDataResponse) {};
+
+}
+
+// The request message
+message GetDataRequest {
+  bytes key = 1;  
+}
+
+// The response message
+message GetDataResponse {
+  bytes value = 1;  
+  bool exist = 2;
+  string error = 3;
+}
+
+// The request message
+message PutDataRequest {
+  bytes key = 1;  
+  bytes value = 2; 
+}
+
+// The response message
+message PutDataResponse {
+  string error = 1;
+}
+

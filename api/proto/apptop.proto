@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+// ApplicationTopPosition
+service ApplicationTopPosition {
+  rpc GetApplicationTopPositions(GetPositionsRequest) returns (GetPositionsResponse) {};
+  rpc GetApplicationTopPositionsStreaming(stream GetPositionsRequest) returns (stream GetPositionsResponse) {};
+
+}
+
+// The request message
+message GetPositionsRequest {
+  string date = 1;  // Request date
+}
+
+// The response message
+message GetPositionsResponse {
+  string date = 1;  // Request date
+  int32 status = 2;
+  string message = 3;
+  bytes data = 4;
+}
+
