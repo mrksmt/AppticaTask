@@ -84,9 +84,106 @@ Message: OK
 
 В рамках приложения сервис не несет функциональной нагрузки, и может быть заменен на любую другую реализацию системы хранения и доступа к данным с помощью замены соответствующего модуля доступа к данным на стороне клиентов.
 
+## Использование
+
+---
+**NOTE!**
+
+Понятно, что все это прототип.
+
+---
 
 
+Скачайте репозиторий локально
+```bash
+$ git clone https://github.com/mrksmt/AppticaTask.git
+```
+Запустите генератор protobuf и grpc
+```bash
+$ make gen_proto 
+```
 
 
+Запустите сервис доступ к данным
+```bash
+$ make dataservice
+```
 
 
+Запустите обработчик данных
+```bash
+$ make dataprocessor
+```
+
+
+Запустите HTTP Endpoint
+```bash
+$ make httpendpoint
+```
+```bash
+$ curl http://192.168.31.25:8081/appTopCategory?date=2021-05-17
+{"status_code":200,"message":"OK","data":{"134":59,"2":23,"23":5}}
+```
+
+Запустите GRPC Endpoint
+```bash
+$ make grpcendpoint
+```
+Попробуйте запустить тестового grpc клиента в режимах одиночного и потокового запроса и получить ответ от эндпоинта:
+```bash
+$ make client_unary 
+cd cmd/grpcclient && GRPC_HOST=localhost:8082 REQUEST_TYPE=unary DATES="2021-05-12" go run main.go
+Date:    2021-05-12
+Status:  200
+Message: OK
+{
+   "status_code": 200,
+   "message": "OK",
+   "data": {
+      "134": 73,
+      "2": 26,
+      "23": 5
+   }
+}
+```
+``` bash
+$ make client_streaming 
+cd cmd/grpcclient && GRPC_HOST=localhost:8082 REQUEST_TYPE=streaming DATES="2006-01-02 2021-04-12 2021-05-12 2021-05-22 55555" go run main.go
+Date:    2006-01-02
+Status:  404
+Message: Data not found
+
+Date:    2021-04-12
+Status:  404
+Message: Data not found
+
+Date:    2021-05-12
+Status:  200
+Message: OK
+{
+   "status_code": 200,
+   "message": "OK",
+   "data": {
+      "134": 73,
+      "2": 26,
+      "23": 5
+   }
+}
+
+Date:    2021-05-22
+Status:  200
+Message: OK
+{
+   "status_code": 200,
+   "message": "OK",
+   "data": {
+      "134": 91,
+      "2": 34,
+      "23": 6
+   }
+}
+
+Date:    55555
+Status:  400
+Message: Bad request err: parsing time "55555" as "2006-01-02": cannot parse "5" as "-"
+```

@@ -1,9 +1,13 @@
 package grpcclientstorage
 
-import "github.com/alexflint/go-arg"
+import (
+	"log"
+
+	"github.com/alexflint/go-arg"
+)
 
 type Config struct {
-	Host string `arg:"env:DATA_SRV_HOST"`
+	DataHost string `arg:"env:DATA_HOST"`
 }
 
 // Проверка и сохранение входяще конфигурации.
@@ -15,7 +19,8 @@ func checkConfig(config *Config) {
 	}
 
 	cfg = &Config{
-		Host: "localhost:8095",
+		DataHost: "localhost:8095",
 	}
-	arg.MustParse(cfg)
+	arg.Parse(cfg)
+	log.Printf("Dataservice host: %s", cfg.DataHost)
 }

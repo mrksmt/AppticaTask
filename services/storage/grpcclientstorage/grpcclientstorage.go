@@ -51,7 +51,7 @@ func (s *GrpcClientStorage) Run(mainParam *api.MainParams) error {
 
 func getClientConn() (*grpc.ClientConn, error) {
 	opts := grpc.WithInsecure()
-	con, err := grpc.Dial(cfg.Host, opts)
+	con, err := grpc.Dial(cfg.DataHost, opts)
 	if err != nil {
 		return nil, errors.Wrap(err, "Connecting err")
 	}

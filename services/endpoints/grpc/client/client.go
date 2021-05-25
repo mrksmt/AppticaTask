@@ -60,7 +60,7 @@ func getClientConn() (*grpc.ClientConn, error) {
 	return con, nil
 }
 
-// getMccmnc function
+// getApplicationTopPositions
 func getApplicationTopPositions(c proto.ApplicationTopPositionClient, date string) error {
 
 	req := &proto.GetPositionsRequest{
@@ -70,14 +70,14 @@ func getApplicationTopPositions(c proto.ApplicationTopPositionClient, date strin
 	ctx, _ := context.WithTimeout(context.TODO(), time.Second*2)
 	res, err := c.GetApplicationTopPositions(ctx, req)
 	if err != nil {
-		return errors.Wrap(err, "c.GetMccmnc err")
+		return errors.Wrap(err, "c.GetApplicationTopPositions err")
 	}
-	fmt.Println(res.Data)
+	printResponse(res)
 
 	return nil
 }
 
-// getApplicationTopPositionsStreaming function
+// getApplicationTopPositionsStreaming
 func getApplicationTopPositionsStreaming(c proto.ApplicationTopPositionClient, dates ...string) error {
 
 	// Get the stream

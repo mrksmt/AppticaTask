@@ -1,9 +1,13 @@
 package manager
 
-import "github.com/alexflint/go-arg"
+import (
+	"log"
+
+	"github.com/alexflint/go-arg"
+)
 
 type Config struct {
-	Rate int `arg:"env:UPDATE_RATE"`
+	UpdateRate int `arg:"env:UPDATE_RATE"`
 }
 
 // Проверка и сохранение входяще конфигурации.
@@ -15,7 +19,8 @@ func checkConfig(config *Config) {
 	}
 
 	cfg = &Config{
-		Rate: 10,
+		UpdateRate: 10,
 	}
-	arg.MustParse(cfg)
+	arg.Parse(cfg)
+	log.Printf("Manager update rate: %d sec", cfg.UpdateRate)
 }

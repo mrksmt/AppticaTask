@@ -48,7 +48,7 @@ func (s *Manager) mainLoop(ctx context.Context, wg *sync.WaitGroup) {
 
 	defer wg.Done()
 	ctxDone := ctx.Done()
-	ticker := time.NewTicker(time.Second * time.Duration(cfg.Rate))
+	ticker := time.NewTicker(time.Second * time.Duration(cfg.UpdateRate))
 
 	for {
 

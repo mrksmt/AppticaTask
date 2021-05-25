@@ -18,5 +18,5 @@ func checkConfig(config *Config) {
 	cfg = &Config{
 		Port: 8080,
 	}
-	arg.MustParse(cfg)
+	arg.Parse(cfg)
 }
