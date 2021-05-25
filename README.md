@@ -98,10 +98,8 @@ Message: OK
 ```bash
 $ git clone https://github.com/mrksmt/AppticaTask.git
 ```
-Запустите генератор protobuf и grpc
-```bash
-$ make gen_proto 
-```
+
+
 
 
 Запустите сервис доступ к данным
