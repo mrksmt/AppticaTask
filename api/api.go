@@ -60,3 +60,9 @@ type Route struct {
 	Handler    http.HandlerFunc // исполняемая функция
 	QueryPairs []string
 }
+
+// общие параметры конфигурации
+type CommonParams struct {
+	ApplicationId int `arg:"env:APPLICATION_ID"`
+	CountryId     int `arg:"env:COUNTRY_ID"`
+}

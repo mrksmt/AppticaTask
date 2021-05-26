@@ -5,7 +5,7 @@ dataservice:
 	cd cmd/dataservice/ && DATA_SRV_PORT=8877 go run main.go
 
 dataprocessor:
-	cd cmd/dataprocessor/ && UPDATE_RATE=60 DATA_HOST=localhost:8877 go run main.go 
+	cd cmd/dataprocessor/ && APPLICATION_ID=1421444 COUNTRY_ID=1 UPDATE_RATE=60 DATA_HOST=localhost:8877 go run main.go 
 
 httpendpoint:
 	cd cmd/httpendpoint/ && HTTP_SRV_PORT=8081 DATA_HOST=localhost:8877 go run main.go

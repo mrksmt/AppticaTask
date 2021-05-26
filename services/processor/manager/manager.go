@@ -65,8 +65,8 @@ func (s *Manager) mainLoop(ctx context.Context, wg *sync.WaitGroup) {
 func (s *Manager) updateData() {
 
 	// get raw
-	applicationId := "1421444"
-	countryId := "1"
+	applicationId := fmt.Sprintf("%d", cfg.ApplicationId)
+	countryId := fmt.Sprintf("%d", cfg.CountryId)
 	today := time.Now().Format("2006-01-02")
 	monthAgo := time.Now().AddDate(0, -1, 0).Format("2006-01-02")
 

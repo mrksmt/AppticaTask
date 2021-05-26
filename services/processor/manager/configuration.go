@@ -2,11 +2,13 @@ package manager
 
 import (
 	"log"
+	"task/api"
 
 	"github.com/alexflint/go-arg"
 )
 
 type Config struct {
+	api.CommonParams
 	UpdateRate int `arg:"env:UPDATE_RATE"`
 }
 
@@ -22,5 +24,17 @@ func checkConfig(config *Config) {
 		UpdateRate: 10,
 	}
 	arg.Parse(cfg)
-	log.Printf("Manager update rate: %d sec", cfg.UpdateRate)
+
+	if cfg.ApplicationId <= 0 {
+		log.Fatalf("Wrong Application Id: %d", cfg.ApplicationId)
+	}
+	if cfg.CountryId <= 0 {
+		log.Fatalf("Wrong Country Id: %d", cfg.CountryId)
+	}
+	if cfg.UpdateRate <= 1 {
+		log.Fatalf("Wrong Update Rate: %d", cfg.UpdateRate)
+	} else {
+		log.Printf("Manager update rate: %d sec", cfg.UpdateRate)
+	}
+
 }
