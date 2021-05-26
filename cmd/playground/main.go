@@ -22,9 +22,9 @@ func main() {
 	defer resp.Body.Close()
 	r := mux.NewRouter()
 	r.Host("{subdomain}.apptica.com").
-		Path("/package/{applicationId}/{countryId:[0-9]+}").
-		Queries("date_from", "{date_from}").
-		Queries("date_to", "{date_to}").
+		Path("/package/{applicationId:[0-9]+}/{countryId:[0-9]+}").
+		Queries("date_from", "{date_from:[0-9]{4}-[0-9]{2}-[0-9]{2}}").
+		Queries("date_to", "{date_to:[0-9]{4}-[0-9]{2}-[0-9]{2}}").
 		Queries("B4NKGg", "{B4NKGg}").
 		Name("rawdata")
 

@@ -65,12 +65,14 @@ func (s *Manager) mainLoop(ctx context.Context, wg *sync.WaitGroup) {
 func (s *Manager) updateData() {
 
 	// get raw
+	applicationId := "1421444"
+	countryId := "1"
 	today := time.Now().Format("2006-01-02")
 	monthAgo := time.Now().AddDate(0, -1, 0).Format("2006-01-02")
 
 	log.Printf("Get raw data from %s to %s", monthAgo, today)
 
-	raw, err := dataSource.Get(monthAgo, today)
+	raw, err := dataSource.Get(applicationId, countryId, monthAgo, today)
 	if err != nil {
 		log.Println(errors.Wrap(err, "Get raw data err"))
 		return

@@ -34,7 +34,7 @@ type ResultData struct {
 }
 
 type DataSource interface {
-	Get(from, to string) (*RawData, error)
+	Get(applicationId, countryId, from, to string) (*RawData, error)
 }
 
 type Storage interface {
