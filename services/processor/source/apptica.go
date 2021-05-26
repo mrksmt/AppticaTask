@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"task/api"
 
@@ -42,7 +41,7 @@ func (s *AppticaDataSource) Get(applicationId, countryId, from, to string) (*api
 	// http://api.apptica.com/package/1421444/1?date_from=2021-04-26&date_to=2021-05-26&B4NKGg=fVN5Q9KVOlOHDx9mOsKPAQsFBlEhBOwguLkNEDTZvKzJzT3l
 	// https://api.apptica.com/package/top_history/1421444/1?date_from=2021-05-1&date_to=2021-05-23&B4NKGg=fVN5Q9KVOlOHDx9mOsKPAQsFBlEhBOwguLkNEDTZvKzJzT3l
 
-	log.Println(url.String())
+	// log.Println(url.String())
 	if err != nil {
 		return nil, errors.Wrap(err, "Get request URL err")
 	}

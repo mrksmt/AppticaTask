@@ -19,5 +19,8 @@ func TestGet(t *testing.T) {
 	data, err := src.Get(applicationId, countryId, monthAgo, today)
 	log.Println(data, err)
 
-	t.Error("MOCK")
+	if err != nil {
+		t.Error(err)
+	}
+
 }
