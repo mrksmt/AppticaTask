@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"task/api"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -18,6 +20,27 @@ func main() {
 		log.Fatal(err)
 	}
 	defer resp.Body.Close()
+	r := mux.NewRouter()
+	r.Host("{subdomain}.apptica.com").
+		Path("/package/{applicationId}/{countryId:[0-9]+}").
+		Queries("date_from", "{date_from}").
+		Queries("date_to", "{date_to}").
+		Queries("B4NKGg", "{B4NKGg}").
+		Name("rawdata")
+
+	// url.String() will be "http://news.example.com/articles/technology/42?filter=gorilla"
+	url, err := r.Get("rawdata").URL(
+		"subdomain", "api",
+		"subdomain", "api",
+		"applicationId", "1421444",
+		"countryId", "1",
+		"date_from", "2021-04-22",
+		"date_to", "2021-05-23",
+		"B4NKGg", "fVN5Q9KVOlOHDx9mOsKPAQsFBlEhBOwguLkNEDTZvKzJzT3l",
+	)
+
+	log.Println(url.String())
+	return
 
 	if resp.StatusCode == http.StatusOK {
 		bodyBytes, err := ioutil.ReadAll(resp.Body)

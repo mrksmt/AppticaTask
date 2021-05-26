@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"task/api"
 
+	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
 )
 
@@ -21,9 +22,24 @@ func New() *AppticaDataSource {
 
 func (s *AppticaDataSource) Get(from, to string) (*api.RawData, error) {
 
-	getString := fmt.Sprintf(`https://api.apptica.com/package/top_history/1421444/1?date_from=%s&date_to=%s&B4NKGg=fVN5Q9KVOlOHDx9mOsKPAQsFBlEhBOwguLkNEDTZvKzJzT3l`, from, to)
-	// fmt.Println(getString)
-	resp, err := http.Get(getString)
+	r := mux.NewRouter()
+	r.Host("{subdomain}.apptica.com").
+		Path("/package/{applicationId}/{countryId:[0-9]+}").
+		Queries("date_from", "{date_from}").
+		Queries("date_to", "{date_to}").
+		Queries("B4NKGg", "{B4NKGg}").
+		Name("rawdata")
+
+	url, err := r.Get("rawdata").URL(
+		"subdomain", "api",
+		"applicationId", "1421444",
+		"countryId", "1",
+		"date_from", from,
+		"date_to", to,
+		"B4NKGg", "fVN5Q9KVOlOHDx9mOsKPAQsFBlEhBOwguLkNEDTZvKzJzT3l",
+	)
+
+	resp, err := http.Get(url.String())
 	if err != nil {
 		log.Fatal(err)
 	}
