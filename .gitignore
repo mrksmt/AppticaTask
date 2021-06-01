@@ -1,2 +1,3 @@
 cmd/var/*
 # *.pb*
+api/proto/pb/*
